@@ -5,8 +5,17 @@ namespace MeihuaWintry.Services.CaseStorage;
 
 public sealed class LunarTime
 {
-    public Dizhi Year { get; set; }
-    public int Month { get; set; }
-    public int Day { get; set; }
-    public Dizhi Time { get; set; }
+    // Do not remove JsonIgnore attributes like this.
+    // Null value of nullable valuetypes cannot be correctly deserialized.
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dizhi? Year { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? Month { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? Day { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dizhi? Time { get; set; }
 }
