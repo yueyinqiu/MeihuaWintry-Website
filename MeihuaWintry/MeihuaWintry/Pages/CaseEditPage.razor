@@ -1,0 +1,12 @@
+﻿@page "/case?id={CaseId:guid}"
+
+<PageTitle>@caseName - 冬日梅花</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">@caseName</MudText>
+
+@code {
+    private string? caseName = "未知卦例";
+
+    [Parameter]
+    public Guid CaseId { get; set; }
+}
