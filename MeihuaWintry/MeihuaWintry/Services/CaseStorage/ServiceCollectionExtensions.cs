@@ -4,7 +4,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCaseStorage(this IServiceCollection services)
     {
-        _ = services.AddSingleton<CaseStore>();
+        _ = services.AddScoped<CaseStore>();
         return services;
     }
 }

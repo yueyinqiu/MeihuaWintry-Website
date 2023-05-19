@@ -4,6 +4,7 @@
 
 <MudText Typo="Typo.h3" GutterBottom="true">起卦</MudText>
 
-@code {
-
-}
+<MudForm>
+    <MudDatePicker @bind-Date="WesternDate" Label="起课日期"></MudDatePicker>
+    <MudTimePicker @bind-Date="WesternTime" Label="起课时间"></MudTimePicker>
+</MudForm>

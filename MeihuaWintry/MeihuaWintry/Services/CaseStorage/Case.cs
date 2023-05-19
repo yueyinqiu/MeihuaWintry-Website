@@ -7,7 +7,9 @@ namespace MeihuaWintry.Services.CaseStorage;
 public sealed class Case
 {
     public Guid IdAuto { get; set; }
-    public DateTime LastEditAuto { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DateTime? LastEditAuto { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? CaseName { get; set; }
@@ -21,7 +23,7 @@ public sealed class Case
     public SolarTime? SolarTime { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public SolarTime? LunarTime { get; set; }
+    public LunarTime? LunarTime { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? UpperExpression { get; set; }
@@ -33,13 +35,13 @@ public sealed class Case
     public string? LineExpression { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public GuaTrigram? Upper { get; set; }
+    public GuaHexagram? Original { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public GuaTrigram? Lower { get; set; }
+    public GuaHexagram? Overlapping { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Line { get; set; }
+    public GuaHexagram? Changed { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Comment { get; set; }

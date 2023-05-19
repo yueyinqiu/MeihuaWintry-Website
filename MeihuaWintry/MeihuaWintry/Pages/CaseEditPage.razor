@@ -1,12 +1,15 @@
-﻿@page "/case?id={CaseId:guid}"
+﻿@page "/cases/{CaseId:guid}"
 
-<PageTitle>@caseName - 冬日梅花</PageTitle>
+@inject CaseStore CaseStore
 
-<MudText Typo="Typo.h3" GutterBottom="true">@caseName</MudText>
-
-@code {
-    private string? caseName = "未知卦例";
-
-    [Parameter]
-    public Guid CaseId { get; set; }
+@if (editingCase is null)
+{
+    <PageTitle>未知占例 - 冬日梅花</PageTitle>
+    <MudText Typo="Typo.h3" Class="p3">未找到占例</MudText>
+    <MudText>@this.MessageCaseNotFound</MudText>
+    return;
 }
+
+<PageTitle>@editingCase.Name - 冬日梅花</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">@editingCase.Name</MudText>

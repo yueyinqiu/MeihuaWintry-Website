@@ -17,11 +17,13 @@ public sealed class CaseStore
 
     public IEnumerable<Case> EnumrateCases()
     {
-        foreach(var key in localStorage.Keys())
+        foreach (var key in localStorage.Keys())
         {
-            if(key.StartsWith(storagePrefix))
+            if (key.StartsWith(storagePrefix))
             {
-                yield return localStorage.GetItem<Case>(key);
+                var item = localStorage.GetItem<Case>(key);
+                if (item.LastEditAuto.HasValue)
+                    yield return item;
             }
         }
     }
@@ -36,16 +38,25 @@ public sealed class CaseStore
                 continue;
 
             var c = new Case() {
-                IdAuto = id,
-                LastEditAuto = DateTime.Now
+                IdAuto = id
             };
             localStorage.SetItem(key, c);
         }
     }
 
+    public Case? GetCase(Guid id)
+    {
+        var key = $"{storagePrefix}{id:N}";
+        if (localStorage.ContainKey(key))
+            return localStorage.GetItem<Case>(key);
+        else
+            return null;
+    }
+
     public void UpdateCase(Case c)
     {
         var key = $"{storagePrefix}{c.IdAuto:N}";
+        c.LastEditAuto = DateTime.Now;
         localStorage.SetItem(key, c);
     }
 
