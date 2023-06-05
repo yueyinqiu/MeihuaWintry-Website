@@ -1,10 +1,23 @@
 ﻿@page "/cases/new"
 
+@inject CaseStore CaseStore
+@inject NavigationManager NavigationManager
+@inject ZhouyiProvider ZhouyiProvider
+
 <PageTitle>起卦 - 冬日梅花</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">起卦</MudText>
+<MudText Typo="Typo.h3" GutterBottom="true">快速起卦</MudText>
 
 <MudForm>
-    <MudDatePicker @bind-Date="WesternDate" Label="起课日期"></MudDatePicker>
-    <MudTimePicker @bind-Date="WesternTime" Label="起课时间"></MudTimePicker>
+    <MudDatePicker @bind-Date="Date" Label="起卦日期" Error="dateError" ErrorText="请选择起卦日期"></MudDatePicker>
+    <br />
+    <MudTimePicker @bind-Time="Time" Label="起卦时间" Error="timeError" ErrorText="请选择起卦时间"></MudTimePicker>
+    <br />
+    <MudTextField T="string" @bind-Value="Upper" Label="上卦表达式" Error="upperError" ErrorText="解析失败"></MudTextField>
+    <br />
+    <MudTextField T="string" @bind-Value="Lower" Label="下卦表达式" Error="lowerError" ErrorText="解析失败"></MudTextField>
+    <br />
+    <MudTextField T="string" @bind-Value="Line" Label="动爻表达式" Error="lineError" ErrorText="解析失败"></MudTextField>
+    <br />
+    <MudButton @onclick="Submit">起卦</MudButton>
 </MudForm>

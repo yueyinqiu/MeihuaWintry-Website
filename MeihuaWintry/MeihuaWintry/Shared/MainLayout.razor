@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider Theme="theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -12,14 +12,21 @@
     </MudAppBar>
     <MudDrawer @bind-Open="isDrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="1">
         <MudNavMenu>
-            <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">回到主页</MudNavLink>
-            <MudNavLink Href="cases/new" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Add">快速起卦</MudNavLink>
-            <MudNavLink Href="cases" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Article">占卜记录</MudNavLink>
+            <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">主页</MudNavLink>
+            <MudNavLink Href="cases/new" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Add">起卦</MudNavLink>
+            <MudNavLink Href="cases" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Article">历史</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
-            @Body
-        </MudContainer>
+        <ErrorBoundary>
+            <ChildContent>
+                <MudContainer MaxWidth="MaxWidth.Large" Class="pt-16">
+                    @Body
+                </MudContainer>
+            </ChildContent>
+            <ErrorContent>
+                <ErrorBoundaryContent></ErrorBoundaryContent>
+            </ErrorContent>
+        </ErrorBoundary>
     </MudMainContent>
 </MudLayout>

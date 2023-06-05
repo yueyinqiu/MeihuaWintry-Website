@@ -1,5 +1,29 @@
 ﻿@page "/cases"
 
-<PageTitle>占卦记录 - 冬日梅花</PageTitle>
+@inject CaseStore CaseStore
+@inject ZhouyiProvider ZhouyiProvider
+@inject NavigationManager NavigationManager
 
-<MudText Typo="Typo.h3" GutterBottom="true">Counter</MudText>
+<PageTitle>历史 - 冬日梅花</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">占例记录</MudText>
+
+<MudTable T="DisplayedCase" Items="cases" Loading="isLoading" Hover="true" >
+    <HeaderContent>
+        <MudTh>题目</MudTh>
+        <MudTh>时间</MudTh>
+        <MudTh>卦象</MudTh>
+        <MudTh>编辑</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="题目">@context.Name</MudTd>
+        <MudTd DataLabel="时间">@context.WesternTime.ToString("yyyyMMdd HH:mm:ss")</MudTd>
+        <MudTd DataLabel="卦象">@(context.Original.Name)之@(context.Changed.Name)</MudTd>
+        <MudTd DataLabel="编辑">
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" OnClick="(_) => ViewCase(context.InnerCase)"></MudIconButton>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager RowsPerPageString="每页" InfoFormat="当前：{first_item}-{last_item} 共计：{all_items}"></MudTablePager>
+    </PagerContent>
+</MudTable>

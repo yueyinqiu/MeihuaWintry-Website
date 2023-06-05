@@ -1,6 +1,7 @@
 using Blazored.LocalStorage;
 using MeihuaWintry;
 using MeihuaWintry.Services.CaseStorage;
+using MeihuaWintry.Services.ZhouyiReferencing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -12,6 +13,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 _ = builder.Services.AddMudServices();
 _ = builder.Services.AddBlazoredLocalStorage();
 
+_ = builder.Services.AddZhouyiProvider(builder.HostEnvironment.BaseAddress);
 _ = builder.Services.AddCaseStorage();
 
 await builder.Build().RunAsync();

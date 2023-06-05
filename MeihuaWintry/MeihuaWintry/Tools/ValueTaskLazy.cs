@@ -1,24 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace MeihuaWintry.Tools;
+﻿namespace MeihuaWintry.Tools;
 
 public sealed class ValueTaskLazy<T>
 {
     private readonly Lazy<ValueTask<T>> lazy;
 
-    public ValueTaskLazy(Func<ValueTask<T>> asyncFactory)
+    public ValueTaskLazy(Func<ValueTask<T>> asyncFactory, bool startImmediately = false)
     {
-        lazy = new Lazy<ValueTask<T>>(asyncFactory);
+        this.lazy = new Lazy<ValueTask<T>>(asyncFactory);
+        if (startImmediately)
+            _ = this.lazy.Value;
     }
 
     public bool IsValueCreated
     {
         get
         {
-            if (!lazy.IsValueCreated)
+            if (!this.lazy.IsValueCreated)
                 return false;
-            return lazy.Value.IsCompleted;
+            return this.lazy.Value.IsCompleted;
         }
     }
 
@@ -26,12 +25,12 @@ public sealed class ValueTaskLazy<T>
     {
         get
         {
-            return lazy.Value;
+            return this.lazy.Value;
         }
     }
 
     public ValueTask<T> GetValueAsync()
     {
-        return lazy.Value;
+        return this.lazy.Value;
     }
 }

@@ -1,15 +1,45 @@
 ﻿@page "/cases/{CaseId:guid}"
 
 @inject CaseStore CaseStore
+@inject ZhouyiProvider ZhouyiProvider
 
 @if (editingCase is null)
 {
     <PageTitle>未知占例 - 冬日梅花</PageTitle>
     <MudText Typo="Typo.h3" Class="p3">未找到占例</MudText>
-    <MudText>@this.MessageCaseNotFound</MudText>
+    <MudText>
+        您正试图访问标识码为 @(this.CaseId.ToString("N")) 的占例，但我们没有在您的的浏览器储存中找到它。这可能是出于以下原因：
+        <br />
+        一、您打开了他人所分享的链接，或者正在跨浏览器使用。冬日梅花的储存服务由本地浏览器提供，因此无法通过链接来分享或接收占例，也无法跨浏览器访问。
+        <br />
+        二、您试图访问的占例已被删除。需要注意，冬日梅花的储存服务由本地浏览器提供，清除浏览器的某些数据可能导致占例丢失。
+    </MudText>
+
     return;
 }
 
 <PageTitle>@editingCase.Name - 冬日梅花</PageTitle>
 
 <MudText Typo="Typo.h3" GutterBottom="true">@editingCase.Name</MudText>
+
+<MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目"></MudTextField>
+
+<MudText Class="pt5">@editingCase.WesternTimeDisplay</MudText>
+<MudText>@editingCase.NongliLunarTimeDisplay @editingCase.NongliSolarTimeDisplay</MudText>
+
+<MudGrid>
+    <MudItem>
+        <CaseEditPageHexagram Hexagram="editingCase.Original"></CaseEditPageHexagram>
+    </MudItem>
+    <MudItem>
+        <CaseEditPageHexagram Hexagram="editingCase.Overlapping"></CaseEditPageHexagram>
+    </MudItem>
+    <MudItem>
+        <CaseEditPageHexagram Hexagram="editingCase.Changed"></CaseEditPageHexagram>
+    </MudItem>
+</MudGrid>
+
+<MudTextField T="string" @bind-Value="editingCase.Comment" Label="编辑备注" Lines="5"></MudTextField>
+
+<MudButton OnClick="(_) => Save()">保存</MudButton>
+<MudText>上次保存：@lastSaveTime.ToString("HH:mm:ss")</MudText>

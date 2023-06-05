@@ -1,7 +1,4 @@
 ﻿using Blazored.LocalStorage;
-using MeihuaWintry.Tools;
-using Microsoft.JSInterop;
-using System.Security.Cryptography;
 
 namespace MeihuaWintry.Services.CaseStorage;
 
@@ -15,54 +12,55 @@ public sealed class CaseStore
 
     private const string storagePrefix = $"MeihuaWintry-Cases-";
 
-    public IEnumerable<Case> EnumrateCases()
+    public IEnumerable<StoredCase> EnumrateCases()
     {
-        foreach (var key in localStorage.Keys())
+        foreach (var key in this.localStorage.Keys())
         {
             if (key.StartsWith(storagePrefix))
             {
-                var item = localStorage.GetItem<Case>(key);
+                var item = this.localStorage.GetItem<StoredCase>(key);
                 if (item.LastEditAuto.HasValue)
                     yield return item;
             }
         }
     }
 
-    public Case NewCase()
+    public StoredCase NewCase()
     {
         for (; ; )
         {
             var id = Guid.NewGuid();
             var key = $"{storagePrefix}{id:N}";
-            if (localStorage.ContainKey(key))
+            if (this.localStorage.ContainKey(key))
                 continue;
 
-            var c = new Case() {
+            var c = new StoredCase() {
                 IdAuto = id
             };
-            localStorage.SetItem(key, c);
+            this.localStorage.SetItem(key, c);
+            return c;
         }
     }
 
-    public Case? GetCase(Guid id)
+    public StoredCase? GetCase(Guid id)
     {
         var key = $"{storagePrefix}{id:N}";
-        if (localStorage.ContainKey(key))
-            return localStorage.GetItem<Case>(key);
+        if (this.localStorage.ContainKey(key))
+            return this.localStorage.GetItem<StoredCase>(key);
         else
             return null;
     }
 
-    public void UpdateCase(Case c)
+    public void UpdateCase(StoredCase c)
     {
         var key = $"{storagePrefix}{c.IdAuto:N}";
         c.LastEditAuto = DateTime.Now;
-        localStorage.SetItem(key, c);
+        this.localStorage.SetItem(key, c);
     }
 
-    public void RemoveCase(Case c)
+    public void RemoveCase(StoredCase c)
     {
         var key = $"{storagePrefix}{c.IdAuto:N}";
-        localStorage.RemoveItem(key);
+        this.localStorage.RemoveItem(key);
     }
 }

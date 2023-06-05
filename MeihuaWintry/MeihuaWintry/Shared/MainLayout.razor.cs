@@ -1,11 +1,20 @@
-﻿namespace MeihuaWintry.Shared;
+﻿using MudBlazor;
 
-partial class MainLayout
+namespace MeihuaWintry.Shared;
+
+public partial class MainLayout
 {
-    bool isDrawerOpen = true;
+    private bool isDrawerOpen = true;
 
-    void ToggleDrawer()
+    private void ToggleDrawer()
     {
-        isDrawerOpen = !isDrawerOpen;
+        this.isDrawerOpen = !this.isDrawerOpen;
     }
+    private readonly MudTheme theme = new MudTheme() {
+        Typography = new Typography() {
+            Default = new Default() {
+                FontFamily = new[] { "Noto Serif" }
+            }
+        }
+    };
 }
