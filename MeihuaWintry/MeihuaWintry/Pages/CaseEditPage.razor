@@ -4,6 +4,13 @@
 @inject ZhouyiProvider ZhouyiProvider
 @inject ISnackbar Snackbar
 
+@if (!hasLoaded)
+{
+    <PageTitle>冬日梅花</PageTitle>
+    <MudText Typo="Typo.h3" Class="p3">正在查找占例……</MudText>
+    return;
+}
+
 @if (editingCase is null)
 {
     <PageTitle>未知占例 - 冬日梅花</PageTitle>

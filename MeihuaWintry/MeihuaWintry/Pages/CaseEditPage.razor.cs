@@ -4,6 +4,7 @@ namespace MeihuaWintry.Pages;
 
 public partial class CaseEditPage
 {
+    private bool hasLoaded = false;
     private DisplayedCase? editingCase;
 
     [Parameter]
@@ -12,6 +13,7 @@ public partial class CaseEditPage
     protected override async Task OnParametersSetAsync()
     {
         var c = this.CaseStore.GetCase(this.CaseId);
+        hasLoaded = true;
         if (c == null)
         {
             this.editingCase = null;
