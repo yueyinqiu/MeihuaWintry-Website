@@ -12,14 +12,16 @@ internal sealed class DisplayedCase
 {
     private static GuaTrigram GetTrigram(int number)
     {
-        number = (number % 8 + 8) % 8;
-        var line1 = (Yinyang)(number % 2);
-        number >>= 1;
-        var line2 = (Yinyang)(number % 2);
-        number >>= 1;
-        var line3 = (Yinyang)(number % 2);
-        Debug.Assert(number is 0 or 1);
-        return new(line1, line2, line3);
+        return ((number % 8 + 8) % 8) switch {
+            1 => new(Yinyang.Yang, Yinyang.Yang, Yinyang.Yang),
+            2 => new(Yinyang.Yang, Yinyang.Yang, Yinyang.Yin),
+            3 => new(Yinyang.Yang, Yinyang.Yin, Yinyang.Yang),
+            4 => new(Yinyang.Yang, Yinyang.Yin, Yinyang.Yin),
+            5 => new(Yinyang.Yin, Yinyang.Yang, Yinyang.Yang),
+            6 => new(Yinyang.Yin, Yinyang.Yang, Yinyang.Yin),
+            7 => new(Yinyang.Yin, Yinyang.Yin, Yinyang.Yang),
+            _ => new(Yinyang.Yin, Yinyang.Yin, Yinyang.Yin),
+        };
     }
 
     public DisplayedCase(StoredCase c, ZhouyiStore zhouyi)
