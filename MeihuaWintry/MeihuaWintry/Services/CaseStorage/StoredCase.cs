@@ -9,13 +9,13 @@ public sealed class StoredCase
     // Do not remove JsonIgnore attributes like this.
     // Null value of nullable valuetypes cannot be correctly deserialized.
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DateTime? LastEditAuto { get; set; }
+    public long? LastEditAuto { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? CaseName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DateTime? Time { get; set; }
+    public long? Time { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Upper { get; set; }

@@ -54,7 +54,7 @@ public sealed class CaseStore
     public void UpdateCase(StoredCase c)
     {
         var key = $"{storagePrefix}{c.IdAuto:N}";
-        c.LastEditAuto = DateTime.Now;
+        c.LastEditAuto = DateTime.Now.Ticks;
         this.localStorage.SetItem(key, c);
     }
 

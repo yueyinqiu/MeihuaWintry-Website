@@ -27,8 +27,8 @@ internal sealed class DisplayedCase
         this.InnerCase = c;
 
         if (!c.Time.HasValue)
-            c.Time = new DateTime();
-        this.WesternTime = c.Time.Value;
+            c.Time = new DateTime().Ticks;
+        this.WesternTime = new(c.Time.Value);
 
         if (this.WesternTime.Hour == 23)
             this.NongliTime = new(this.WesternTime.Add(new TimeSpan(1, 0, 0)));

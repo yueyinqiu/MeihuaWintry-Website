@@ -3,6 +3,9 @@
 @inject CaseStore CaseStore
 @inject ZhouyiProvider ZhouyiProvider
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+@inject Downloader Downloader
 
 @if (!hasLoaded)
 {
@@ -51,6 +54,8 @@
         <MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目"></MudTextField>
         <MudTextField T="string" @bind-Value="editingCase.Comment" Label="设置备注" Lines="15"></MudTextField>
         <MudButton OnClick="(_) => Save()">保存</MudButton>
+        <MudButton OnClick="(_) => Delete()">删除</MudButton>
+        <MudButton OnClick="(_) => Export()">导出</MudButton>
     </MudTabPanel>
     <MudTabPanel Text="本卦易辞">
         <CaseEditPageTextDisplay Hexagram="editingCase.Original"></CaseEditPageTextDisplay>

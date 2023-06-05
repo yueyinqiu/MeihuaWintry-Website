@@ -147,7 +147,7 @@ public partial class CaseCreatePage
         }
 
         var c = this.CaseStore.NewCase();
-        c.Time = dateTime;
+        c.Time = dateTime.Ticks;
         c.CaseName = $"新占例 - {c.IdAuto.ToString("N")[0..8]}";
         c.Upper = upper;
         c.Lower = lower;

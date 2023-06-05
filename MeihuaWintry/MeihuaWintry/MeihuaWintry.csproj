@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
 		<PackageReference Include="DynamicExpresso.Core" Version="2.16.0" />
+		<PackageReference Include="FileDownloader" Version="1.2.0" />
 		<PackageReference Include="lunar-csharp" Version="1.5.3" />
 		<PackageReference Include="LunarCsharpYiJingFrameworkExtensions" Version="1.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />

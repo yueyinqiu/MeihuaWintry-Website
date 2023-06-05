@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using FileDownloader;
 using MeihuaWintry;
 using MeihuaWintry.Services.CaseStorage;
 using MeihuaWintry.Services.ZhouyiReferencing;
@@ -14,6 +15,7 @@ _ = builder.Services.AddMudServices(config => {
     config.SnackbarConfiguration.PreventDuplicates = false;
 });
 _ = builder.Services.AddBlazoredLocalStorage();
+_ = builder.Services.AddFileDownloder();
 
 _ = builder.Services.AddZhouyiProvider(builder.HostEnvironment.BaseAddress);
 _ = builder.Services.AddCaseStorage();
