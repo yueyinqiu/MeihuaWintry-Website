@@ -4,7 +4,7 @@
   "display": "browser",
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "favicon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
