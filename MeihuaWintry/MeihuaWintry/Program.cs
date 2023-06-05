@@ -10,7 +10,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-_ = builder.Services.AddMudServices();
+_ = builder.Services.AddMudServices(config => {
+    config.SnackbarConfiguration.PreventDuplicates = false;
+});
 _ = builder.Services.AddBlazoredLocalStorage();
 
 _ = builder.Services.AddZhouyiProvider(builder.HostEnvironment.BaseAddress);

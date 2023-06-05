@@ -13,20 +13,22 @@ public partial class CaseEditPage
     {
         var c = this.CaseStore.GetCase(this.CaseId);
         if (c == null)
+        {
             this.editingCase = null;
+        }
         else
         {
             var z = await this.ZhouyiProvider.GetStoreAsync();
-            this.editingCase = c is null ? null : new(c, z);
-            Save();
+            this.editingCase = new(c, z);
+            this.Save(true);
         }
     }
 
-    DateTime lastSaveTime;
-    private void Save()
+    private void Save(bool noPrompt = false)
     {
-        if (editingCase is not null)
-            CaseStore.UpdateCase(editingCase.InnerCase);
-        lastSaveTime = DateTime.Now;
+        if (this.editingCase is not null)
+            this.CaseStore.UpdateCase(this.editingCase.InnerCase);
+        if (!noPrompt)
+            this.Snackbar.Add("保存成功");
     }
 }

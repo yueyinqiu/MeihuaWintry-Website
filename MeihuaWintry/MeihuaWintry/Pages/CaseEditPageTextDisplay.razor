@@ -1,0 +1,52 @@
+﻿@if(Hexagram is null)
+{
+    return;
+}
+
+<MudText>
+    @this.Hexagram.Name：@Hexagram.Text
+    <br />
+    象曰：@Hexagram.Xiang
+    <br />
+    彖曰：@Hexagram.Tuan
+    <br />
+    <br />
+    @ToLineTitle(0, Hexagram)：@Hexagram.FirstLine.LineText
+    <br />
+    象曰：@Hexagram.FirstLine.Xiang
+    <br />
+    <br />
+    @ToLineTitle(1, Hexagram)：@Hexagram.SecondLine.LineText
+    <br />
+    象曰：@Hexagram.SecondLine.Xiang
+    <br />
+    <br />
+    @ToLineTitle(3, Hexagram)：@Hexagram.ThirdLine.LineText
+    <br />
+    象曰：@Hexagram.ThirdLine.Xiang
+    <br />
+    <br />
+    @ToLineTitle(3, Hexagram)：@Hexagram.FourthLine.LineText
+    <br />
+    象曰：@Hexagram.FourthLine.Xiang
+    <br />
+    <br />
+    @ToLineTitle(4, Hexagram)：@Hexagram.FifthLine.LineText
+    <br />
+    象曰：@Hexagram.FifthLine.Xiang
+    <br />
+    <br />
+    @ToLineTitle(5, Hexagram)：@Hexagram.SixthLine.LineText
+    <br />
+    象曰：@Hexagram.SixthLine.Xiang
+    <br />
+    <br />
+    @if (Hexagram.Yong.LineText is not null)
+    {
+        <text>@ToLineTitle(6, Hexagram)：@Hexagram.Yong.LineText</text>
+        <br />
+        <text>象曰：@Hexagram.Yong.Xiang</text>
+        <br />
+        <br />
+    }
+</MudText>

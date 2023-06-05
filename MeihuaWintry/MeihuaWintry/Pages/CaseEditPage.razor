@@ -2,6 +2,7 @@
 
 @inject CaseStore CaseStore
 @inject ZhouyiProvider ZhouyiProvider
+@inject ISnackbar Snackbar
 
 @if (editingCase is null)
 {
@@ -20,12 +21,11 @@
 
 <PageTitle>@editingCase.Name - 冬日梅花</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">@editingCase.Name</MudText>
+<MudText Typo="Typo.h3">@editingCase.Name</MudText>
 
-<MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目"></MudTextField>
-
-<MudText Class="pt5">@editingCase.WesternTimeDisplay</MudText>
-<MudText>@editingCase.NongliLunarTimeDisplay @editingCase.NongliSolarTimeDisplay</MudText>
+<MudText>@editingCase.WesternTimeDisplay</MudText>
+<MudText>@editingCase.NongliLunarTimeDisplay</MudText>
+<MudText>@editingCase.NongliSolarTimeDisplay</MudText>
 
 <MudGrid>
     <MudItem>
@@ -39,7 +39,19 @@
     </MudItem>
 </MudGrid>
 
-<MudTextField T="string" @bind-Value="editingCase.Comment" Label="编辑备注" Lines="5"></MudTextField>
-
-<MudButton OnClick="(_) => Save()">保存</MudButton>
-<MudText>上次保存：@lastSaveTime.ToString("HH:mm:ss")</MudText>
+<MudTabs>
+    <MudTabPanel Text="编辑卦例">
+        <MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目"></MudTextField>
+        <MudTextField T="string" @bind-Value="editingCase.Comment" Label="设置备注" Lines="15"></MudTextField>
+        <MudButton OnClick="(_) => Save()">保存</MudButton>
+    </MudTabPanel>
+    <MudTabPanel Text="本卦易辞">
+        <CaseEditPageTextDisplay Hexagram="editingCase.Original"></CaseEditPageTextDisplay>
+    </MudTabPanel>
+    <MudTabPanel Text="互卦易辞">
+        <CaseEditPageTextDisplay Hexagram="editingCase.Overlapping"></CaseEditPageTextDisplay>
+    </MudTabPanel>
+    <MudTabPanel Text="变卦易辞">
+        <CaseEditPageTextDisplay Hexagram="editingCase.Changed"></CaseEditPageTextDisplay>
+    </MudTabPanel>
+</MudTabs>
