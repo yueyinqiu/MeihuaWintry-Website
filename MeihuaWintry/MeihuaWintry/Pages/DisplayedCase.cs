@@ -82,9 +82,9 @@ internal sealed class DisplayedCase
     {
         get
         {
-            return $"{this.NongliTime.YearZhi}年" +
-                $"{this.NongliTime.MonthInChinese}月" +
-                $"{this.NongliTime.DayInChinese}" +
+            return $"{this.NongliTime.YearZhi}年 " +
+                $"{this.NongliTime.MonthInChinese}月 " +
+                $"{this.NongliTime.DayInChinese} " +
                 $"{this.NongliTime.TimeZhi}时";
         }
     }
