@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeihuaWintry", "MeihuaWintry\MeihuaWintry.csproj", "{AFB0CE7F-DA3E-4F92-8A4A-B51ABB8598AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintry", "MeihuaWintry\MeihuaWintry.csproj", "{AFB0CE7F-DA3E-4F92-8A4A-B51ABB8598AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhouyiStoreCleaner", "ZhouyiStoreCleaner\ZhouyiStoreCleaner.csproj", "{25FB9264-A66C-4A3C-B026-A39F4113A012}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AFB0CE7F-DA3E-4F92-8A4A-B51ABB8598AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFB0CE7F-DA3E-4F92-8A4A-B51ABB8598AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFB0CE7F-DA3E-4F92-8A4A-B51ABB8598AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FB9264-A66C-4A3C-B026-A39F4113A012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FB9264-A66C-4A3C-B026-A39F4113A012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FB9264-A66C-4A3C-B026-A39F4113A012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FB9264-A66C-4A3C-B026-A39F4113A012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

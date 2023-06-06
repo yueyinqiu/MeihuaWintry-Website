@@ -1,6 +1,5 @@
 ﻿using MeihuaWintry.Services.CaseStorage;
-using System.Diagnostics;
-using YiJingFramework.Annotating.Zhouyi;
+using MeihuaWintry.Services.ZhouyiReferencing;
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.EntityRelationships.MostAccepted.GuaDerivingExtensions;
 using YiJingFramework.PrimitiveTypes;
@@ -24,7 +23,7 @@ internal sealed class DisplayedCase
         };
     }
 
-    public DisplayedCase(StoredCase c, ZhouyiStore zhouyi)
+    public DisplayedCase(StoredCase c, PreloadedZhouyiStore zhouyi)
     {
         this.InnerCase = c;
 
@@ -49,10 +48,9 @@ internal sealed class DisplayedCase
             c.Line = 0;
         this.Lower = c.Line.Value;
 
-        this.Original = zhouyi.GetHexagram(
-            new(GetTrigram(this.Lower).Concat(GetTrigram(this.Upper))));
-        this.Overlapping = zhouyi.GetHexagram(this.Original.Painting.Hugua());
-        this.Changed = zhouyi.GetHexagram(this.Original.Painting.ReverseLines(this.Line));
+        this.Original = zhouyi[new GuaHexagram(GetTrigram(this.Lower).Concat(GetTrigram(this.Upper)))];
+        this.Overlapping = zhouyi[this.Original.Painting.Hugua()];
+        this.Changed = zhouyi[this.Original.Painting.ReverseLines(this.Line)];
     }
     public StoredCase InnerCase { get; }
 

@@ -7,26 +7,10 @@ namespace MeihuaWintry.Pages;
 
 public partial class CaseCreatePage
 {
-    private bool dateError = false;
-    private DateTime? date;
-
-    private DateTime? Date
-    {
-        get
-        {
-            return this.date;
-        }
-        set
-        {
-            this.dateError = false;
-            this.date = value;
-        }
-    }
-
     private bool timeError = false;
-    private TimeSpan? time;
+    private DateTime? time;
 
-    private TimeSpan? Time
+    private DateTime? Time
     {
         get
         {
@@ -86,21 +70,17 @@ public partial class CaseCreatePage
 
     protected override void OnInitialized()
     {
-        var dateTime = DateTime.Now;
-        this.date = dateTime.Date;
-        this.time = dateTime.TimeOfDay;
+        this.time = DateTime.Now;
     }
 
     private async Task Submit()
     {
-        this.dateError = this.Date is null;
         this.timeError = this.Time is null;
-        if (this.dateError || this.timeError)
+        if (this.timeError)
             return;
-        Debug.Assert(this.Date is not null);
         Debug.Assert(this.Time is not null);
 
-        var dateTime = this.Date.Value.Add(this.Time.Value);
+        var dateTime = this.Time.Value;
         var nongliTime = new Lunar.Lunar(
             dateTime.Hour == 23 ? dateTime.Add(new TimeSpan(1, 0, 0)) : dateTime);
 
@@ -153,11 +133,12 @@ public partial class CaseCreatePage
         c.Lower = lower;
         c.Line = line;
 
-        var displayedCase = new DisplayedCase(c, await this.ZhouyiProvider.GetStoreAsync());
+        var zhouyi = await this.ZhouyiProvider.GetStoreAsync();
+        var displayedCase = new DisplayedCase(c, zhouyi);
 
         var overlappings = displayedCase.Overlapping.SplitToTrigrams();
-        var overlappingUpperZhouyi = await this.ZhouyiProvider.GetTextsAsync(overlappings.upper);
-        var overlappingLowerZhouyi = await this.ZhouyiProvider.GetTextsAsync(overlappings.lower);
+        var overlappingUpperZhouyi = zhouyi[overlappings.upper];
+        var overlappingLowerZhouyi = zhouyi[overlappings.lower];
 
         c.Comment = new StringBuilder()
             .Append('于')
