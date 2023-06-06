@@ -72,7 +72,7 @@ internal sealed class DisplayedCase
     {
         get
         {
-            return $"{this.WesternTime:yyyy-MM-dd HH:mm:ss}";
+            return $"{this.WesternTime:yyyy/MM/dd HH:mm}";
         }
     }
     public Lunar.Lunar NongliTime { get; }

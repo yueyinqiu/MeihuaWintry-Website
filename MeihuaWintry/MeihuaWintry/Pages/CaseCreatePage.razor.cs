@@ -70,7 +70,9 @@ public partial class CaseCreatePage
 
     protected override void OnInitialized()
     {
-        this.time = DateTime.Now;
+        var currentTime = DateTime.Now;
+        this.time = new DateTime(currentTime.Year, currentTime.Month,
+            currentTime.Day, currentTime.Hour, currentTime.Minute, 0);
     }
 
     private async Task Submit()
