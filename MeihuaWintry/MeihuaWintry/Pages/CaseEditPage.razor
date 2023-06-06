@@ -37,9 +37,11 @@
 <MudText>@editingCase.NongliLunarTimeDisplay</MudText>
 <MudText>@editingCase.NongliSolarTimeDisplay</MudText>
 
-<CaseEditPageHexagram Hexagram="editingCase.Original"></CaseEditPageHexagram>
-<CaseEditPageHexagram Hexagram="editingCase.Overlapping"></CaseEditPageHexagram>
-<CaseEditPageHexagram Hexagram="editingCase.Changed"></CaseEditPageHexagram>
+<div style="overflow-x: scroll">
+    <CaseEditPageHexagram Hexagram="editingCase.Original"></CaseEditPageHexagram>
+    <CaseEditPageHexagram Hexagram="editingCase.Overlapping"></CaseEditPageHexagram>
+    <CaseEditPageHexagram Hexagram="editingCase.Changed"></CaseEditPageHexagram>
+</div>
 
 <MudTabs PanelClass="pa-4" MinimumTabWidth="8rem">
     <MudTabPanel Text="编辑">
