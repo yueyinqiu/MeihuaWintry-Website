@@ -11,9 +11,12 @@ public partial class MainLayout
         this.isDrawerOpen = !this.isDrawerOpen;
     }
 
-    private readonly MudTheme theme = new MudTheme() {
-        Typography = new Typography() {
-            Default = new Default() {
+    private readonly MudTheme theme = new MudTheme()
+    {
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
                 FontFamily = new[] { "Noto Serif" }
             }
         }

@@ -11,7 +11,8 @@ internal sealed class DisplayedCase
 {
     private static GuaTrigram GetTrigram(int number)
     {
-        return ((number % 8 + 8) % 8) switch {
+        return ((number % 8 + 8) % 8) switch
+        {
             1 => new(Yinyang.Yang, Yinyang.Yang, Yinyang.Yang),
             2 => new(Yinyang.Yang, Yinyang.Yang, Yinyang.Yin),
             3 => new(Yinyang.Yang, Yinyang.Yin, Yinyang.Yang),
