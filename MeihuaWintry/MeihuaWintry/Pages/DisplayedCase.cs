@@ -46,11 +46,13 @@ internal sealed class DisplayedCase
 
         if (!c.Line.HasValue)
             c.Line = 0;
-        this.Lower = c.Line.Value;
+        this.Line = c.Line.Value;
 
         this.Original = zhouyi[new GuaHexagram(GetTrigram(this.Lower).Concat(GetTrigram(this.Upper)))];
         this.Overlapping = zhouyi[this.Original.Painting.Hugua()];
-        this.Changed = zhouyi[this.Original.Painting.ReverseLines(this.Line)];
+
+        var changingLine = (this.Line % 6 + 6 - 1) % 6;
+        this.Changed = zhouyi[this.Original.Painting.ReverseLines(changingLine)];
     }
     public StoredCase InnerCase { get; }
 
