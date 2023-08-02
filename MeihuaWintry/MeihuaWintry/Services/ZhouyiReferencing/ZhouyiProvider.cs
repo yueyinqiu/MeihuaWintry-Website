@@ -9,14 +9,19 @@ public sealed class ZhouyiProvider
     private readonly ValueTaskLazy<PreloadedZhouyiStore> zhouyiStore;
     public ZhouyiProvider(string baseAddress)
     {
-        this.zhouyiStore = new ValueTaskLazy<PreloadedZhouyiStore>(async () => {
-            using var client = new HttpClient() {
+        this.zhouyiStore = new ValueTaskLazy<PreloadedZhouyiStore>(async () =>
+        {
+            using var client = new HttpClient()
+            {
                 BaseAddress = new(baseAddress)
             };
+            var location = await client.GetFromJsonAsync(
+                "zhouyi-location.json",
+                StringContext.Default.String);
             var result = await client.GetFromJsonAsync(
-                "zhouyi.json",
+                location,
                 ZhouyiStoreContext.Default.ZhouyiStore);
-            return new PreloadedZhouyiStore(result!);
+            return new PreloadedZhouyiStore(result ?? new(null));
         }, true);
     }
 

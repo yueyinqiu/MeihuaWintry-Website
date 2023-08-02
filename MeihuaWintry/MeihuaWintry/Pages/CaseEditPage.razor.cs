@@ -92,7 +92,8 @@ public partial class CaseEditPage
 
         using var stream = new MemoryStream();
         await JsonSerializer.SerializeAsync(
-            stream, this.editingCase.InnerCase, new StoredCaseContext(new JsonSerializerOptions() {
+            stream, this.editingCase.InnerCase, new StoredCaseContext(new JsonSerializerOptions()
+            {
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             }).StoredCase);

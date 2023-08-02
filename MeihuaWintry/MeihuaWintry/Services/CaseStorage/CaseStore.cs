@@ -34,7 +34,8 @@ public sealed class CaseStore
             if (this.localStorage.ContainKey(key))
                 continue;
 
-            var c = new StoredCase() {
+            var c = new StoredCase()
+            {
                 IdAuto = id
             };
             this.localStorage.SetItem(key, c);

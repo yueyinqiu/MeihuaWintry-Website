@@ -87,18 +87,18 @@ public partial class CaseCreatePage
             dateTime.Hour == 23 ? dateTime.Add(new TimeSpan(1, 0, 0)) : dateTime);
 
         var interpreter = new Interpreter();
-        interpreter.SetDefaultNumberType(DefaultNumberType.Decimal);
+        _ = interpreter.SetDefaultNumberType(DefaultNumberType.Decimal);
 
-        interpreter.SetVariable("年", (decimal)nongliTime.YearZhi().Index);
-        interpreter.SetVariable("月", (decimal)nongliTime.Month);
-        interpreter.SetVariable("日", (decimal)nongliTime.Day);
-        interpreter.SetVariable("时", (decimal)nongliTime.TimeZhi().Index);
+        _ = interpreter.SetVariable("年", (decimal)nongliTime.YearZhi().Index);
+        _ = interpreter.SetVariable("月", (decimal)nongliTime.Month);
+        _ = interpreter.SetVariable("日", (decimal)nongliTime.Day);
+        _ = interpreter.SetVariable("时", (decimal)nongliTime.TimeZhi().Index);
 
         int upper, lower, line;
         try
         {
             upper = Convert.ToInt32(interpreter.Eval(this.Upper));
-            interpreter.SetVariable("上", (decimal)upper);
+            _ = interpreter.SetVariable("上", (decimal)upper);
         }
         catch
         {
@@ -109,7 +109,7 @@ public partial class CaseCreatePage
         try
         {
             lower = Convert.ToInt32(interpreter.Eval(this.Lower));
-            interpreter.SetVariable("下", (decimal)lower);
+            _ = interpreter.SetVariable("下", (decimal)lower);
         }
         catch
         {
@@ -120,7 +120,7 @@ public partial class CaseCreatePage
         try
         {
             line = Convert.ToInt32(interpreter.Eval(this.Line));
-            interpreter.SetVariable("爻", (decimal)line);
+            _ = interpreter.SetVariable("爻", (decimal)line);
         }
         catch
         {

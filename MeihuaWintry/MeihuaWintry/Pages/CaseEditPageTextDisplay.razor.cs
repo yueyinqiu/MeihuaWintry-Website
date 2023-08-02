@@ -11,7 +11,8 @@ public partial class CaseEditPageTextDisplay
     private static string ToLineTitle(int index0Based, ZhouyiHexagram hexagram)
     {
         var y = hexagram.Painting[Math.Min(index0Based, 5)].IsYang ? '九' : '六';
-        return index0Based switch {
+        return index0Based switch
+        {
             0 => $"初{y}",
             1 => $"{y}二",
             2 => $"{y}三",
