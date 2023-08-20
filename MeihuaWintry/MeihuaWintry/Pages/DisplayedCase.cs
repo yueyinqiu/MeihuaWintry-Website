@@ -1,7 +1,7 @@
 ﻿using MeihuaWintry.Services.CaseStorage;
 using MeihuaWintry.Services.ZhouyiReferencing;
 using YiJingFramework.Annotating.Zhouyi.Entities;
-using YiJingFramework.EntityRelationships.MostAccepted.GuaDerivingExtensions;
+using YiJingFramework.EntityRelations.GuaDerivations.Extensions;
 using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
@@ -32,11 +32,6 @@ internal sealed class DisplayedCase
             c.Time = new DateTime().Ticks;
         this.WesternTime = new(c.Time.Value);
 
-        if (this.WesternTime.Hour == 23)
-            this.NongliTime = new(this.WesternTime.Add(new TimeSpan(1, 0, 0)));
-        else
-            this.NongliTime = new(this.WesternTime);
-
         if (!c.Lower.HasValue)
             c.Lower = 0;
         this.Lower = c.Lower.Value;
@@ -53,7 +48,7 @@ internal sealed class DisplayedCase
         this.Overlapping = zhouyi[this.Original.Painting.Hugua()];
 
         var changingLine = (this.Line % 6 + 6 - 1) % 6;
-        this.Changed = zhouyi[this.Original.Painting.ReverseLines(changingLine)];
+        this.Changed = zhouyi[this.Original.Painting.ChangeLines(changingLine)];
     }
     public StoredCase InnerCase { get; }
 
@@ -75,28 +70,7 @@ internal sealed class DisplayedCase
     {
         get
         {
-            return $"{this.WesternTime:yyyy/MM/dd HH:mm}";
-        }
-    }
-    public Lunar.Lunar NongliTime { get; }
-    public string NongliLunarTimeDisplay
-    {
-        get
-        {
-            return $"{this.NongliTime.YearZhi}年 " +
-                $"{this.NongliTime.MonthInChinese}月 " +
-                $"{this.NongliTime.DayInChinese} " +
-                $"{this.NongliTime.TimeZhi}时";
-        }
-    }
-    public string NongliSolarTimeDisplay
-    {
-        get
-        {
-            return $"{this.NongliTime.YearInGanZhiByLiChun} " +
-                $"{this.NongliTime.MonthInGanZhi} " +
-                $"{this.NongliTime.DayInGanZhi} " +
-                $"{this.NongliTime.TimeInGanZhi}";
+            return $"起卦时间：公历{this.WesternTime:yyyy年M月d日H时mm分}";
         }
     }
 
