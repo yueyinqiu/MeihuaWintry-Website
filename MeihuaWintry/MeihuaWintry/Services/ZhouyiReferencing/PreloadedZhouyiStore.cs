@@ -17,7 +17,7 @@ public sealed class PreloadedZhouyiStore
         this.hexagramsByGua = new(64);
         for (byte b = 0b1_000_000; b <= 0b1_111_111; b++)
         {
-            var gua = Gua.FromBytes(new[] { b }).As<GuaHexagram>();
+            var gua = Gua.FromBytes(new[] { b }).AsFixed<GuaHexagram>();
             var hexagram = store.GetHexagram(gua);
             hexagrams.Add(hexagram);
             this.hexagramsByGua[gua] = hexagram;
@@ -28,7 +28,7 @@ public sealed class PreloadedZhouyiStore
         this.trigramsByGua = new(8);
         for (byte b = 0b1_000; b <= 0b1_111; b++)
         {
-            var gua = Gua.FromBytes(new[] { b }).As<GuaTrigram>();
+            var gua = Gua.FromBytes(new[] { b }).AsFixed<GuaTrigram>();
             var trigram = store.GetTrigram(gua);
             this.trigramsByGua[gua] = trigram;
         }

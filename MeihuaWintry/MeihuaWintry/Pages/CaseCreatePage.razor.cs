@@ -1,6 +1,7 @@
-﻿using DynamicExpresso;
-using LunarCsharpYiJingFrameworkExtensions;
+﻿using ChineseLunisolarCalendarYjFwkExtensions.Extensions;
+using DynamicExpresso;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace MeihuaWintry.Pages;
@@ -83,16 +84,15 @@ public partial class CaseCreatePage
         Debug.Assert(this.Time is not null);
 
         var dateTime = this.Time.Value;
-        var nongliTime = new Lunar.Lunar(
-            dateTime.Hour == 23 ? dateTime.Add(new TimeSpan(1, 0, 0)) : dateTime);
 
         var interpreter = new Interpreter();
         _ = interpreter.SetDefaultNumberType(DefaultNumberType.Decimal);
 
-        _ = interpreter.SetVariable("年", (decimal)nongliTime.YearZhi().Index);
-        _ = interpreter.SetVariable("月", (decimal)nongliTime.Month);
-        _ = interpreter.SetVariable("日", (decimal)nongliTime.Day);
-        _ = interpreter.SetVariable("时", (decimal)nongliTime.TimeZhi().Index);
+        var chineseCalendar = new ChineseLunisolarCalendar();
+        _ = interpreter.SetVariable("年", (decimal)chineseCalendar.GetYearGanzhi(dateTime).dizhi.Index);
+        _ = interpreter.SetVariable("月", (decimal)chineseCalendar.GetMonthWithLeap(dateTime).month);
+        _ = interpreter.SetVariable("日", (decimal)chineseCalendar.GetDayOfMonth(dateTime));
+        _ = interpreter.SetVariable("时", (decimal)chineseCalendar.GetShichenDizhi(dateTime).Index);
 
         int upper, lower, line;
         try
@@ -144,28 +144,13 @@ public partial class CaseCreatePage
 
         c.Comment = new StringBuilder()
             .Append('于')
-            .Append(nongliTime.YearZhi)
+            .Append(chineseCalendar.GetYearGanzhiInChinese(dateTime))
             .Append('年')
-            .Append(nongliTime.MonthInChinese)
+            .Append(chineseCalendar.GetMonthInChinese(dateTime))
             .Append('月')
-            .Append(nongliTime.DayInChinese)
-            .Append(nongliTime.TimeZhi)
-            .Append("时起得此卦。时")
-            .Append(dateTime.Year)
-            .Append('年')
-            .Append(dateTime.Month)
-            .Append('月')
-            .Append(dateTime.Day)
-            .Append('日')
-            .Append(dateTime.Hour)
-            .Append('时')
-            .Append(dateTime.Minute)
-            .Append("分，又纪")
-            .Append(nongliTime.YearInGanZhiByLiChun)
-            .Append(nongliTime.MonthInGanZhi)
-            .Append(nongliTime.DayInGanZhi)
-            .Append(nongliTime.TimeInGanZhi)
-            .Append('。')
+            .Append(chineseCalendar.GetDayInChinese(dateTime))
+            .Append(chineseCalendar.GetShichenDizhi(dateTime).ToString("C"))
+            .Append(dateTime.ToString("时起得此卦。时yyyy年M月d日H时mm分。"))
             .AppendLine()
             .Append("其以")
             .Append(this.Upper)
