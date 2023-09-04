@@ -48,7 +48,7 @@ internal sealed class DisplayedCase
         this.Overlapping = zhouyi[this.Original.Painting.Hugua()];
 
         var changingLine = (this.Line % 6 + 6 - 1) % 6;
-        this.Changed = zhouyi[this.Original.Painting.ChangeLines(changingLine)];
+        this.Changed = zhouyi[this.Original.Painting.ChangeYaos(changingLine)];
     }
     public StoredCase InnerCase { get; }
 

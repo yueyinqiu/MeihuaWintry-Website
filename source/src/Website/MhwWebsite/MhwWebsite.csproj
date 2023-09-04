@@ -12,16 +12,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
-		<PackageReference Include="ChineseLunisolarCalendarYjFwkExtensions" Version="1.2.0" />
 		<PackageReference Include="DynamicExpresso.Core" Version="2.16.1" />
 		<PackageReference Include="FileDownloader" Version="1.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.10" PrivateAssets="all" />
 		<PackageReference Include="MudBlazor" Version="6.9.0" />
-		<PackageReference Include="YiJingFramework.Annotating.Zhouyi" Version="5.2.0" />
-		<PackageReference Include="YiJingFramework.EntityRelations" Version="2.3.0" />
-		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="1.3.0" />
-		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="2.0.0" />
+		<PackageReference Include="YiJingFramework.Annotating.Zhouyi" Version="6.0.0" />
+		<PackageReference Include="YiJingFramework.EntityRelations" Version="3.0.0" />
+		<PackageReference Include="YiJingFramework.Nongli" Version="2.0.1" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="2.0.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

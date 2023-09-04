@@ -1,8 +1,9 @@
-﻿using ChineseLunisolarCalendarYjFwkExtensions.Extensions;
-using DynamicExpresso;
+﻿using DynamicExpresso;
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
+using YiJingFramework.Nongli.Extensions;
+using YiJingFramework.Nongli.Lunar;
+using YiJingFramework.Nongli.Solar;
 
 namespace MhwWebsite.Pages;
 
@@ -24,7 +25,7 @@ public partial class CaseCreatePage
         }
     }
 
-    private string upper = "年+月+日";
+    private string upper = "年+Math.Abs(月)+日";
     private bool upperError = false;
     private string Upper
     {
@@ -84,15 +85,17 @@ public partial class CaseCreatePage
         Debug.Assert(this.Time is not null);
 
         var dateTime = this.Time.Value;
+        var lunar = LunarDateTime.FromGregorian(dateTime);
+        var solar = SolarDateTime.FromGregorian(dateTime);
 
         var interpreter = new Interpreter();
         _ = interpreter.SetDefaultNumberType(DefaultNumberType.Decimal);
 
-        var chineseCalendar = new ChineseLunisolarCalendar();
-        _ = interpreter.SetVariable("年", (decimal)chineseCalendar.GetYearGanzhi(dateTime).dizhi.Index);
-        _ = interpreter.SetVariable("月", (decimal)chineseCalendar.GetMonthWithLeap(dateTime).month);
-        _ = interpreter.SetVariable("日", (decimal)chineseCalendar.GetDayOfMonth(dateTime));
-        _ = interpreter.SetVariable("时", (decimal)chineseCalendar.GetShichenDizhi(dateTime).Index);
+        _ = interpreter.SetVariable("年", (decimal)(int)lunar.Nian.Dizhi);
+        var yue = lunar.IsRunyue ? -lunar.Yue : lunar.Yue;
+        _ = interpreter.SetVariable("月", (decimal)yue);
+        _ = interpreter.SetVariable("日", (decimal)lunar.Ri);
+        _ = interpreter.SetVariable("时", (decimal)(int)lunar.Shi);
 
         int upper, lower, line;
         try
@@ -144,27 +147,34 @@ public partial class CaseCreatePage
 
         c.Comment = new StringBuilder()
             .Append('于')
-            .Append(chineseCalendar.GetYearGanzhiInChinese(dateTime))
+            .Append(lunar.Nian.ToString("C"))
             .Append('年')
-            .Append(chineseCalendar.GetMonthInChinese(dateTime))
+            .Append(lunar.YueInChinese())
             .Append('月')
-            .Append(chineseCalendar.GetDayInChinese(dateTime))
-            .Append(chineseCalendar.GetShichenDizhi(dateTime).ToString("C"))
-            .Append(dateTime.ToString("时起得此卦。时yyyy年M月d日H时mm分。"))
-            .AppendLine()
-            .Append("其以")
+            .Append(lunar.RiInChinese())
+            .Append(lunar.Shi.ToString("C"))
+            .Append(dateTime.ToString("时起得此卦。时yyyy年M月d日H时mm分，又纪"))
+            .Append(solar.Nian.ToString("C"))
+            .Append('年')
+            .Append(solar.Yue.ToString("C"))
+            .Append('月')
+            .Append(solar.Ri.ToString("C"))
+            .Append('日')
+            .Append(solar.Shi.ToString("C"))
+            .AppendLine("时。")
+            .Append("其以“")
             .Append(this.Upper)
-            .Append('为')
+            .Append("”为")
             .Append(upper)
-            .Append("作上卦，以")
+            .Append("数作上卦，以“")
             .Append(this.Lower)
-            .Append('为')
+            .Append("”为")
             .Append(lower)
-            .Append("作下卦，又以")
+            .Append("数作下卦，又以“")
             .Append(this.Line)
-            .Append('为')
+            .Append("”为")
             .Append(line)
-            .Append("作动爻，得")
+            .Append("数作动爻。得")
             .Append(displayedCase.Original.Name)
             .Append('之')
             .Append(displayedCase.Changed.Name)
