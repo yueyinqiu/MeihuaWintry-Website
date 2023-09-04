@@ -9,7 +9,7 @@
 <MudText Typo="Typo.h3" Class="mb-5">快速起卦</MudText>
 
 <MudForm>
-    <MudTextField T="DateTime?" @bind-Value="Time" Label="起卦时间" Format="s" InputType="InputType.DateTimeLocal" Error="timeError" ErrorText="请选择起卦时间" FullWidth="false" Variant="Variant.Outlined" Class="pb-3"/>
+    <MudTextField T="DateTime?" @bind-Value="Time" Label="起卦时间" Format="s" InputType="InputType.DateTimeLocal" Error="timeError" ErrorText="不支持的起卦时间" FullWidth="false" Variant="Variant.Outlined" Class="pb-3"/>
 
     <MudTextField T="string" @bind-Value="Upper" Label="上卦表达式" Error="upperError" ErrorText="解析失败" FullWidth="false" Variant="Variant.Outlined" Class="pb-3"></MudTextField>
 

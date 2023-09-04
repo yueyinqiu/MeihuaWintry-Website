@@ -25,7 +25,7 @@ public partial class CaseCreatePage
         }
     }
 
-    private string upper = "年+Math.Abs(月)+日";
+    private string upper = "年+月+日";
     private bool upperError = false;
     private string Upper
     {
@@ -85,6 +85,16 @@ public partial class CaseCreatePage
         Debug.Assert(this.Time is not null);
 
         var dateTime = this.Time.Value;
+        var year = dateTime.Year;
+        if (year <= LunarNian.MinSupportedNian.Year ||
+            year <= SolarNian.MinSupportedNian.Year ||
+            year >= LunarNian.MaxSupportedNian.Year ||
+            year >= SolarNian.MaxSupportedNian.Year)
+        {
+            this.timeError = true;
+            return;
+        }
+        
         var lunar = LunarDateTime.FromGregorian(dateTime);
         var solar = SolarDateTime.FromGregorian(dateTime);
 
@@ -92,8 +102,7 @@ public partial class CaseCreatePage
         _ = interpreter.SetDefaultNumberType(DefaultNumberType.Decimal);
 
         _ = interpreter.SetVariable("年", (decimal)(int)lunar.Nian.Dizhi);
-        var yue = lunar.IsRunyue ? -lunar.Yue : lunar.Yue;
-        _ = interpreter.SetVariable("月", (decimal)yue);
+        _ = interpreter.SetVariable("月", (decimal)lunar.Yue);
         _ = interpreter.SetVariable("日", (decimal)lunar.Ri);
         _ = interpreter.SetVariable("时", (decimal)(int)lunar.Shi);
 
