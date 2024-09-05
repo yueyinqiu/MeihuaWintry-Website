@@ -1,0 +1,12 @@
+﻿{
+  "name": "冬日梅花",
+  "start_url": "./",
+  "display": "browser",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

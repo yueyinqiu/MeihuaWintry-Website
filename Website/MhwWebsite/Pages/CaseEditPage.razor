@@ -1,0 +1,71 @@
+﻿@page "/cases/{CaseId:guid}"
+
+@inject CaseStore CaseStore
+@inject ZhouyiProvider ZhouyiProvider
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+@inject Downloader Downloader
+
+@if (zhouyi is null)
+{
+    <PageTitle>冬日梅花</PageTitle>
+    <MudText Typo="Typo.h3" Class="mb-5">正在查找占例……</MudText>
+    return;
+}
+
+@if (editingCase is null)
+{
+    <PageTitle>未知占例 - 冬日梅花</PageTitle>
+    <MudText Typo="Typo.h3" Class="mb-5">未找到占例</MudText>
+    <MudText>
+        您正试图访问标识码为 @(this.CaseId.ToString("N")) 的占例，但我们没有在您的的浏览器储存中找到它。这可能是出于以下原因：
+        <br />
+        一、您打开了他人所分享的链接，或者正在跨浏览器使用。冬日梅花的储存服务由本地浏览器提供，因此无法通过链接来分享或接收占例，也无法跨浏览器访问。
+        <br />
+        二、您试图访问的占例已被删除。需要注意，冬日梅花的储存服务由本地浏览器提供，清除浏览器的某些数据可能导致占例丢失。
+    </MudText>
+
+    return;
+}
+
+<PageTitle>@editingCase.Name - 冬日梅花</PageTitle>
+
+<MudText Typo="Typo.h3" Class="mb-5">@editingCase.Name</MudText>
+
+<MudText>@editingCase.WesternTimeDisplay</MudText>
+
+<div style="overflow-x: scroll">
+    <CaseEditPageHexagram Hexagram="editingCase.Original"></CaseEditPageHexagram>
+    <CaseEditPageHexagram Hexagram="editingCase.Overlapping"></CaseEditPageHexagram>
+    <CaseEditPageHexagram Hexagram="editingCase.Changed"></CaseEditPageHexagram>
+</div>
+
+<MudTabs PanelClass="pa-4" MinimumTabWidth="8rem">
+    <MudTabPanel Text="编辑">
+        <MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3"></MudTextField>
+        <MudTextField T="string" @bind-Value="editingCase.Comment" Label="设置备注" Lines="15" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3"></MudTextField>
+        <MudButton Color="Color.Primary" OnClick="(_) => Save()">保存</MudButton>
+        <MudButton Color="Color.Primary" OnClick="(_) => Export()">导出</MudButton>
+        <MudButton Color="Color.Primary" OnClick="(_) => Delete()">删除</MudButton>
+    </MudTabPanel>
+    <MudTabPanel Text="易辞">
+        <MudSelect T="ZhouyiHexagram" @bind-Value="@displayingText" ToStringFunc="ToStringForSelection" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3">
+            <MudSelectItem Value="@editingCase.Original" />
+            <MudSelectItem Value="@editingCase.Changed" />
+            <MudSelectItem Value="@editingCase.Overlapping" />
+            @foreach (var hexagram in zhouyi.EnumrateHexagramsByIndex())
+            {
+                if (hexagram.Painting == editingCase.Original.Painting)
+                    continue;
+                if (hexagram.Painting == editingCase.Changed.Painting)
+                    continue;
+                if (hexagram.Painting == editingCase.Overlapping.Painting)
+                    continue;
+
+                <MudSelectItem Value="@hexagram" />
+            }
+        </MudSelect>
+        <CaseEditPageTextDisplay Hexagram="displayingText"></CaseEditPageTextDisplay>
+    </MudTabPanel>
+</MudTabs>
