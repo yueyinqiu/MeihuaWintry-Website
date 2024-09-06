@@ -1,1 +1,0 @@
-Copy-Item -Path ./vercel.json -Destination ./wwwroot/vercel.json
