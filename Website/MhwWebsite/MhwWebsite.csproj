@@ -4,7 +4,6 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 
 		<PublishTrimmed>true</PublishTrimmed>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
@@ -22,10 +21,6 @@
 		<PackageReference Include="YiJingFramework.Nongli" Version="4.1.0" />
 		<PackageReference Include="YiJingFramework.PrimitiveTypes" Version="4.0.1" />
 		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="4.0.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
 	</ItemGroup>
 
 </Project>
