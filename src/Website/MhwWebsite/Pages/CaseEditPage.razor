@@ -1,11 +1,14 @@
 ﻿@page "/cases/{CaseId:guid}"
 
+@using Append.Blazor.Clipboard
+
 @inject CaseStore CaseStore
 @inject ZhouyiProvider ZhouyiProvider
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @inject NavigationManager NavigationManager
 @inject Downloader Downloader
+@inject IClipboardService Clipboard
 
 @if (zhouyi is null)
 {
@@ -43,10 +46,11 @@
 
 <MudTabs PanelClass="pa-4" MinimumTabWidth="8rem">
     <MudTabPanel Text="编辑">
-        <MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3"></MudTextField>
-        <MudTextField T="string" @bind-Value="editingCase.Comment" Label="设置备注" Lines="15" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3"></MudTextField>
-        <MudButton Color="Color.Primary" OnClick="(_) => Save()">保存</MudButton>
+        <MudTextField T="string" @bind-Value="editingCase.Name" Label="编辑题目" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3" Disabled="true"></MudTextField>
+        <MudTextField T="string" @bind-Value="editingCase.Comment" Label="设置备注" Lines="15" Variant="Variant.Outlined" Margin="Margin.Dense" Class="pb-3" Disabled="true"></MudTextField>
+        <MudButton Color="Color.Primary" Disabled="true">保存</MudButton>
         <MudButton Color="Color.Primary" OnClick="(_) => Export()">导出</MudButton>
+        <MudButton Color="Color.Primary" OnClick="(_) => Copy()">复制文本</MudButton>
         <MudButton Color="Color.Primary" OnClick="(_) => Delete()">删除</MudButton>
     </MudTabPanel>
     <MudTabPanel Text="易辞">

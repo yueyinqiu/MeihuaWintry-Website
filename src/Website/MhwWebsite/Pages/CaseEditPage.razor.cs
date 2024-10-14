@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using YiJingFramework.Annotating.Zhouyi.Entities;
+using YiJingFramework.EntityRelations.GuaCharacters.Extensions;
 
 namespace MhwWebsite.Pages;
 
@@ -71,6 +72,7 @@ public partial class CaseEditPage
         if (!noPrompt)
             _ = this.Snackbar.Add("保存成功");
     }
+
     private async Task Delete()
     {
         if (this.editingCase is null)
@@ -98,5 +100,23 @@ public partial class CaseEditPage
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             }).StoredCase);
         await this.Downloader.DownloadFromStream(stream.ToArray(), $"{this.editingCase.Name}.json");
+    }
+    private async Task Copy()
+    {
+        if (this.editingCase is null)
+            return;
+
+        var text = new StringBuilder();
+        text.AppendLine($"{this.editingCase.Name}");
+        text.AppendLine($"{this.editingCase.WesternTimeDisplay}");
+        text.AppendLine($"卦象：" +
+            $"{this.editingCase.Original.Painting.ToUnicodeChar()} " +
+            $"{this.editingCase.Overlapping.Painting.ToUnicodeChar()} " +
+            $"{this.editingCase.Changed.Painting.ToUnicodeChar()}");
+        text.AppendLine($"备注：");
+        text.AppendLine($"{this.editingCase.Comment}");
+        await Clipboard.CopyTextToClipboardAsync(text.ToString());
+
+        _ = this.Snackbar.Add("复制成功");
     }
 }

@@ -1,3 +1,4 @@
+using Append.Blazor.Clipboard;
 using Blazored.LocalStorage;
 using FileDownloader;
 using MhwWebsite;
@@ -17,6 +18,7 @@ _ = builder.Services.AddMudServices(config =>
 });
 _ = builder.Services.AddBlazoredLocalStorage();
 _ = builder.Services.AddFileDownloder();
+_ = builder.Services.AddClipboard();
 
 _ = builder.Services.AddZhouyiProvider(builder.HostEnvironment.BaseAddress);
 _ = builder.Services.AddCaseStorage();
